@@ -5,15 +5,14 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "*",
+    path: "/",
     name: "not-found",
-    component: () => import("../pages/error-page.vue"),
+    component: () => import("../pages/error-page/404.vue"),
   },
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
   routes: routes,
 });
 
