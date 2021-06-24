@@ -27,3 +27,5 @@ dynamic-import
 fourseven:scss
 underscore
 ostrio:files
+akryum:vue-component
+akryum:vue-sass
