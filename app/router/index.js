@@ -5,7 +5,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: '/login',
+    name: 'login',
+    component: ()=> import("../pages/login")
+  },
+  {
+    path: "*",
     name: "not-found",
     component: () => import("../pages/error-page/404.vue"),
   },
