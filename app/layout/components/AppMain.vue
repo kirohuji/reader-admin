@@ -5,7 +5,7 @@
       name="fade-transform"
       mode="out-in"
     >
-      <card>
+      <card style="min-height: calc(100vh - 50px);">
         <router-view :key="key" />
       </card>
     </transition>
