@@ -37,6 +37,23 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/books',
+    component: Layout,
+    name: 'books',
+    meta: {
+      title: '书籍中心',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: '/list',
+        component: () => import('../pages/books'),
+        name: 'book',
+        meta: { title: '书籍管理', icon: 'user', affix: true }
+      }
+    ]
+  },
+  {
     path: "*",
     name: "not-found",
     component: () => import("../pages/error-page/404.vue"),
