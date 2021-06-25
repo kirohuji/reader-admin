@@ -1,0 +1,27 @@
+.data-table {
+    padding: 8px;
+
+    .pagination {
+        margin-top: 8px;
+        display: flex;
+        justify-content: center;
+        // text-align: right;
+    }
+
+    // .pagination slot {
+    //     display: inline;
+    //     float: left;
+    // }
+
+    // .pagination .el-pagination__sizes {
+    //     float: left;
+    // }
+
+    // .pagination .el-pagination__total {
+    //     float: left;
+    // }
+
+    // .pagination .el-pagination__jump {
+    //     float: left;
+    // }
+}

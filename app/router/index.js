@@ -3,11 +3,25 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const routes = [
+export const constantRoutes = [
   {
     path: '/login',
     name: 'login',
     component: ()=> import("../pages/login")
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: ()=> import("../pages/login/register.vue")
+  },
+  {
+    path: '/',
+    redirect: '/users'
+  },
+  {
+    path: '/users',
+    name: 'register',
+    component: ()=> import("../pages/users/index.vue")
   },
   {
     path: "*",
@@ -15,10 +29,21 @@ const routes = [
     component: () => import("../pages/error-page/404.vue"),
   },
 ];
+export const asyncRoutes = []
+const createRouter = () =>
+  new VueRouter({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes,
 
-const router = new VueRouter({
-  mode: "history",
-  routes: routes,
-});
+  })
 
-export default router;
+const router = createRouter()
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+export default router

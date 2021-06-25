@@ -989,6 +989,11 @@
     "node-fetch" "^1.0.1"
     "whatwg-fetch" ">=0.10.0"
 
+"js-cookie@^2.2.1":
+  "integrity" "sha1-aeEG3F1YBolFYpAqpbrsN0Tpsrg="
+  "resolved" "https://registry.npm.taobao.org/js-cookie/download/js-cookie-2.2.1.tgz"
+  "version" "2.2.1"
+
 "js-tokens@^4.0.0":
   "integrity" "sha1-GSA/tZmR35jjoocFDUZHzerzJJk="
   "resolved" "https://registry.nlark.com/js-tokens/download/js-tokens-4.0.0.tgz"
@@ -1293,6 +1298,11 @@
   "integrity" "sha1-F0uSaHNVNP+8es5r9TpanhtcX18="
   "resolved" "https://registry.npm.taobao.org/path-is-absolute/download/path-is-absolute-1.0.1.tgz"
   "version" "1.0.1"
+
+"path-to-regexp@^6.2.0":
+  "integrity" "sha1-97OAMzYQTDRoia3s5hRmkjBkXzg="
+  "resolved" "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-6.2.0.tgz?cache=0&sync_timestamp=1601400782940&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpath-to-regexp%2Fdownload%2Fpath-to-regexp-6.2.0.tgz"
+  "version" "6.2.0"
 
 "pbkdf2@^3.0.3":
   "version" "3.1.1"

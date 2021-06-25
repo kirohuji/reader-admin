@@ -10,7 +10,7 @@ Accounts.onCreateUser(({ profile }, user) => {
       ...user,
       profile,
       roles: {
-        __global_roles__: ['todos-admin'],
+        __global_roles__: ['reader'],
       },
     };
   }
