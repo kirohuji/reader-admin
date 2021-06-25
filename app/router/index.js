@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import Layout from '../layout'
 Vue.use(VueRouter);
 
 export const constantRoutes = [
@@ -19,9 +19,22 @@ export const constantRoutes = [
     redirect: '/users'
   },
   {
-    path: '/users',
-    name: 'register',
-    component: ()=> import("../pages/users/index.vue")
+    path: '/',
+    component: Layout,
+    redirect: '/users',
+    name: 'users',
+    meta: {
+      title: '用户中心',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'users',
+        component: () => import('../pages/users'),
+        name: 'users',
+        meta: { title: '用户管理', icon: 'user', affix: true }
+      }
+    ]
   },
   {
     path: "*",
@@ -32,7 +45,7 @@ export const constantRoutes = [
 export const asyncRoutes = []
 const createRouter = () =>
   new VueRouter({
-    // mode: 'history', // require service support
+    mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes,
 

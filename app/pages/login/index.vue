@@ -74,6 +74,7 @@
 
 <script>
 import { validUsername } from '../../utils/validate'
+import { setToken } from '../../utils/auth' 
 export default {
   name: 'Login',
   data() {
@@ -151,6 +152,7 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
+              setToken(Meteor.userId())
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
             })

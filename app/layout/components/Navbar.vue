@@ -58,7 +58,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Hamburger from '../../../components/Hamburger'
+import Hamburger from '../../components/molecules/Hamburger'
 // import ErrorLog from '@/components/ErrorLog'
 // import Screenfull from '@/components/Screenfull'
 // import Search from '@/components/HeaderSearch'
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~../../styles/variables.scss';
+@import '../../styles/variables.scss';
 .navbar {
     height: 50px;
     overflow: hidden;

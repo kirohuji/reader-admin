@@ -8,7 +8,7 @@
     <!-- main -->
     <div class="main-container">
       <sidebar class="sidebar-container" />
-      <app-main style="padding-left:8px">
+      <app-main style="padding:8px">
         <card
           style="border-bottom: 1px solid #DCDFE6;display: flex;align-items: center;  justify-content: space-between;padding: 0px 16px"
         >
@@ -22,12 +22,6 @@
               id="breadcrumb-container"
               class="breadcrumb-container"
             /></div>
-          <el-tabs v-model="activeName" class="app-main-tabs" @tab-click="handleClick">
-            <el-tab-pane label="政府" name="first" />
-            <el-tab-pane label="医疗" name="second" />
-            <el-tab-pane label="居民" name="third" />
-            <el-tab-pane label="系统" name="fourth" />
-          </el-tabs>
         </card>
       </app-main>
     </div>
@@ -38,7 +32,6 @@
 import Card from '../components/atoms/Card'
 import Breadcrumb from '../components/molecules/Breadcrumb'
 import { AppMain, Navbar, Sidebar } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
 export default {
@@ -50,7 +43,6 @@ export default {
     Navbar,
     Sidebar,
   },
-  mixins: [ResizeMixin],
   computed: {
     ...mapState({
       sidebar: (state) => state.app.sidebar,
@@ -82,8 +74,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~../../../styles/mixin.scss';
-@import '~../../../styles/variables.scss';
+@import '../styles/mixin.scss';
+@import '../styles/variables.scss';
 .app-wrapper {
     @include clearfix;
     position: relative;
