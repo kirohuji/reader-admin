@@ -60,6 +60,7 @@ export default {
       users: [],
     },
     users () {
+      console.log('Meteor.users.find()',Meteor.users.find().map(o=>o))
       return Meteor.users.find().map((doc) => ({
         value: false,
         username: doc.username,

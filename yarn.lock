@@ -332,6 +332,11 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+clone@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.nlark.com/clone/download/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz"
@@ -716,10 +721,35 @@ localforage@^1.9.0:
   dependencies:
     lie "3.1.1"
 
+lodash._reinterpolate@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/lodash._reinterpolate/download/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
+  integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
+
 lodash.kebabcase@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npm.taobao.org/lodash.kebabcase/download/lodash.kebabcase-4.1.1.tgz"
   integrity sha1-hImxyw0p/4gZXM7KRI/21swpXDY=
+
+lodash.omit@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npm.taobao.org/lodash.omit/download/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
+  integrity sha1-brGa5aHuHdnfC5aeZs4Lf6MLXmA=
+
+lodash.template@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npm.taobao.org/lodash.template/download/lodash.template-4.5.0.tgz#f976195cf3f347d0d5f52483569fe8031ccce8ab"
+  integrity sha1-+XYZXPPzR9DV9SSDVp/oAxzM6Ks=
+  dependencies:
+    lodash._reinterpolate "^3.0.0"
+    lodash.templatesettings "^4.0.0"
+
+lodash.templatesettings@^4.0.0:
+  version "4.2.0"
+  resolved "https://registry.nlark.com/lodash.templatesettings/download/lodash.templatesettings-4.2.0.tgz#e481310f049d3cf6d47e912ad09313b154f0fb33"
+  integrity sha1-5IExDwSdPPbUfpEq0JMTsVTw+zM=
+  dependencies:
+    lodash._reinterpolate "^3.0.0"
 
 lodash@^4.17.15:
   version "4.17.21"
@@ -734,6 +764,13 @@ md5.js@^1.3.4:
     hash-base "^3.0.0"
     inherits "^2.0.1"
     safe-buffer "^5.1.2"
+
+message-box@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.npm.taobao.org/message-box/download/message-box-0.2.7.tgz#7bab342fe0b0eda246d1490a696e965a5e79188a"
+  integrity sha1-e6s0L+Cw7aJG0UkKaW6WWl55GIo=
+  dependencies:
+    lodash.template "^4.5.0"
 
 meteor-node-stubs@^1.0.1:
   version "1.0.3"
@@ -821,6 +858,11 @@ moment@^2.24.0:
   version "2.29.1"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.29.1.tgz"
   integrity sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M=
+
+mongo-object@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.nlark.com/mongo-object/download/mongo-object-0.1.4.tgz#950d1d856b85af5f2321b82bb08b67b9c27f9766"
+  integrity sha1-lQ0dhWuFr18jIbgrsItnucJ/l2Y=
 
 ms@^2.1.1:
   version "2.1.2"
@@ -1168,6 +1210,15 @@ signal-exit@^3.0.0:
   resolved "https://registry.npm.taobao.org/signal-exit/download/signal-exit-3.0.3.tgz"
   integrity sha1-oUEMLt2PB3sItOJTyOrPyvBXRhw=
 
+simpl-schema@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.nlark.com/simpl-schema/download/simpl-schema-1.12.0.tgz#299ff4446c7fce59678be7e55b5ab0db7566a343"
+  integrity sha1-KZ/0RGx/zllni+flW1qw23Vmo0M=
+  dependencies:
+    clone "^2.1.2"
+    message-box "^0.2.7"
+    mongo-object "^0.1.4"
+
 spark-md5@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npm.taobao.org/spark-md5/download/spark-md5-3.0.1.tgz"
@@ -1297,6 +1348,13 @@ vm-browserify@^1.1.0:
   version "1.1.2"
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
+
+vue-meteor-tracker@^2.0.0-beta.5:
+  version "2.0.0-beta.5"
+  resolved "https://registry.nlark.com/vue-meteor-tracker/download/vue-meteor-tracker-2.0.0-beta.5.tgz#104c4a43857e7050a1f3e30860a80c5f5caf1989"
+  integrity sha1-EExKQ4V+cFCh8+MIYKgMX1yvGYk=
+  dependencies:
+    lodash.omit "^4.5.0"
 
 vue-observe-visibility@^0.4.4:
   version "0.4.6"

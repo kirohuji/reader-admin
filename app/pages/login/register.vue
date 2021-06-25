@@ -134,6 +134,7 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          console.log('注册的状态')
           this.loading = true
           this.$store.dispatch('user/register', this.loginForm)
             .then(() => {

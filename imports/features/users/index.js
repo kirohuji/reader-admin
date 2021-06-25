@@ -1,1 +1,1 @@
-import './api/methods'
+import './app/methods'

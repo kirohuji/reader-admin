@@ -1,1 +1,1 @@
-import './api/publications';
+import './app/publications';
