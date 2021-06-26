@@ -1,6 +1,6 @@
 <template>
   <div style="margin;8px">
-    <Card style="padding: 14px; margin: 8px">
+    <!-- <Card style="padding: 14px; margin: 8px">
       <DataSearchForm :forms="forms" />
       <input
         prepend-icon="file"
@@ -12,22 +12,26 @@
         ref="fileinput"
         @change="uploadIt"
       />
-    </Card>
+    </Card> -->
     <div>
       <DataTable
         header-row-class-name="color-header"
         :column="table.column"
         :data="books"
       >
-        <template v-slot:cover>
-          图片
+        <template v-slot:cover="{row}">
+          <img
+            :src="row.cover"
+            width="100"
+            height="100"
+          />
         </template>
         <!-- <template v-slot:url="{row}">
           <a :href="getUrl(row.fileId)">下载地址</a>
         </template> -->
-        <template v-slot:operation>
+        <!-- <template v-slot:operation>
           <el-button size="small">删除</el-button>
-        </template>
+        </template> -->
       </DataTable>
     </div>
   </div>
@@ -37,8 +41,8 @@
 import DataTable from '../../components/organisms/DataTable'
 import DataSearchForm from '../../components/organisms/DataSearchForm'
 import Card from '../../components/atoms/Card'
-import UserFiles from '../../../imports/features/books/app/collections';
-import { Books } from '../../../imports/features/books/app/collections'
+import UserFiles from '../../../lib/features/books/app/collections';
+import { Books } from '../../../lib/features/books/app/collections'
 import _ from 'lodash'
 import localforage from 'localforage'
 import SparkMD5 from "spark-md5";
@@ -181,30 +185,31 @@ export default {
       table: {
         column: [
           {
+            prop: 'cover',
+            label: '封面',
+            scopedSlots: true,
+            width: 130
+          },
+          {
             prop: 'name',
             label: '名称',
-            width: 120
+            width: 150
           },
           {
             prop: 'author',
             label: '作者',
-            with: 80
+            with: 100
 
           },
           {
             prop: 'description',
             label: '描述信息',
-            width: 220
-          },
-          {
-            prop: 'cover',
-            label: '封面',
-            scopedSlots: true
+            'show-overflow-tooltip': true
           },
           {
             prop: 'publisher',
             label: '出版社',
-            width: 220
+            width: 150
           },
           {
             prop: 'url',
@@ -215,7 +220,7 @@ export default {
           {
             prop: 'operation',
             label: '操作',
-            width: '70',
+            width: '100',
             scopedSlots: true,
           },
         ],
@@ -229,7 +234,7 @@ export default {
   },
   methods: {
     getUrl (id) {
-      const result =UserFiles.findOne({ _id: id })
+      const result = UserFiles.findOne({ _id: id })
 
       if (result) {
         return result.link();

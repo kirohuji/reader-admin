@@ -1,3 +1,3 @@
 import './app/core'
-import './imports/features/users';
-import './imports/features/books';
+import './lib/features/users';
+import './lib/features/books';

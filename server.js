@@ -1,6 +1,6 @@
-import './imports/features/auth/hook'
+import './lib/features/auth/hook'
 
-// import './imports/features/users';
-import './imports/features/users/server.js';
-
-import './imports/features/books/server.js';
+import './lib/features/users';
+import './lib/features/users/server.js';
+import './lib/features/books'
+import './lib/features/books/server.js';

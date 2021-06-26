@@ -1,29 +1,26 @@
 <template>
   <div>
-    <Card style="padding: 14px;padding-bottom: 0">
-      <DataSearchForm
-        :forms="config.search"
-        label-position="right"
-        style="justify-content: space-between;"
-      >
-        <template v-slot:right>
-          <el-button>新建活动</el-button>
-        </template>
-      </DataSearchForm>
-    </Card>
     <Card style="padding: 14px;padding-top: 0">
       <DataTable
         :column="table.column"
         style="padding: 0"
         :data="users"
       >
-        <template v-slot:operation>
+        <template v-slot:operation="{row}">
           <div>
-            <el-link
+            <!-- <el-link
               type="primary"
               @click="$refs.baseDialog.open()"
-            >编辑</el-link>
-            <el-link type="primary">禁用</el-link>
+            >编辑</el-link> -->
+            <el-link
+              type="primary"
+              @click="()=> { 
+                table.selected=row;
+                $refs.bookDialog.open();
+
+              }"
+            >管理书籍</el-link>
+            <!-- <el-link type="primary">禁用</el-link> -->
           </div>
         </template>
       </DataTable>
@@ -37,6 +34,12 @@
         label-position="right"
       />
     </BaseDialog>
+    <BaseDialog
+      ref="bookDialog"
+      title="新增用户"
+    >
+      <BookTransfer :userId="table.selected._id"/>
+    </BaseDialog>
   </div>
 </template>
 
@@ -44,6 +47,7 @@
 import DataTable from '../../components/organisms/DataTable'
 import DataSearchForm from '../../components/organisms/DataSearchForm'
 import DataForm from '../../components/organisms/DataForm'
+import BookTransfer from '../../components/organisms/BookTransfer'
 import BaseDialog from '../../components/molecules/BaseDialog.vue'
 import Card from '../../components/atoms/Card'
 import config from './config'
@@ -53,6 +57,7 @@ export default {
     DataTable,
     DataSearchForm,
     DataForm,
+    BookTransfer,
     BaseDialog
   },
   meteor: {
@@ -60,7 +65,7 @@ export default {
       users: [],
     },
     users () {
-      console.log('Meteor.users.find()',Meteor.users.find().map(o=>o))
+      console.log('Meteor.users.find()', Meteor.users.find().map(o => o))
       return Meteor.users.find().map((doc) => ({
         value: false,
         username: doc.username,
@@ -74,8 +79,10 @@ export default {
   },
   data () {
     return {
+
       config: config,
       table: {
+        selected: {},
         column: [
           {
             prop: 'username',
@@ -101,7 +108,7 @@ export default {
           {
             prop: 'operation',
             label: '操作',
-            width: '100',
+            width: '150',
             scopedSlots: true
           }
         ]
