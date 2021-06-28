@@ -1,7 +1,7 @@
 <template>
   <div style="margin;8px">
-    <!-- <Card style="padding: 14px; margin: 8px">
-      <DataSearchForm :forms="forms" />
+    <Card style="padding: 14px; margin: 8px">
+      <!-- <DataSearchForm :forms="forms" /> -->
       <input
         prepend-icon="file"
         type="file"
@@ -12,12 +12,13 @@
         ref="fileinput"
         @change="uploadIt"
       />
-    </Card> -->
+    </Card>
     <div>
       <DataTable
         header-row-class-name="color-header"
         :column="table.column"
         :data="books"
+        @row-click="handleRowClick"
       >
         <template v-slot:cover="{row}">
           <img
@@ -26,12 +27,12 @@
             height="100"
           />
         </template>
-        <!-- <template v-slot:url="{row}">
+        <template v-slot:url="{row}">
           <a :href="getUrl(row.fileId)">下载地址</a>
-        </template> -->
-        <!-- <template v-slot:operation>
-          <el-button size="small">删除</el-button>
-        </template> -->
+        </template>
+        <template v-slot:operation="{row}">
+          <el-button @click="removeFile(row)">删除</el-button>
+        </template>
       </DataTable>
     </div>
   </div>
@@ -44,7 +45,6 @@ import Card from '../../components/atoms/Card'
 import UserFiles from '../../../lib/features/books/app/collections';
 import { Books } from '../../../lib/features/books/app/collections'
 import _ from 'lodash'
-import localforage from 'localforage'
 import SparkMD5 from "spark-md5";
 import BookModel from '../../utils/BookModel'
 import BookUtil from '../../utils/BookUtil'
@@ -61,7 +61,6 @@ export default {
       userfiles: []
     },
     books () {
-      console.log('收到', Books.find())
       return Books.find();
     },
   },
@@ -78,109 +77,6 @@ export default {
         uploading: [],
         progress: 0,
         inProgress: false
-      },
-      forms: {
-        col: 3,
-        fields: [
-          {
-            label: '预警时间',
-            prop: 'date',
-            component: 'date-picker',
-            type: 'datetime',
-            placeholder: '选择日期',
-            'value-format': 'yyyy-MM-dd HH:mm',
-            format: 'yyyy-MM-dd HH:mm',
-            size: 'small',
-          },
-          {
-            label: '审核时间',
-            prop: 'aduit',
-            component: 'date-picker',
-            type: 'datetime',
-            placeholder: '选择日期',
-            'value-format': 'yyyy-MM-dd HH:mm',
-            format: 'yyyy-MM-dd HH:mm',
-            size: 'small',
-          },
-          {
-            label: '所属地区',
-            prop: 'address',
-            component: 'address',
-            size: 'small',
-          },
-          {
-            label: '预警来源',
-            prop: 'source',
-            component: 'select',
-            size: 'small',
-            options: [
-              {
-                label: '不限',
-                value: null,
-              },
-              {
-                label: '居民自报',
-                value: 1,
-              },
-              {
-                label: '系统预警',
-                value: 2,
-              },
-            ],
-          },
-          {
-            label: '居民类型',
-            prop: 'pType',
-            component: 'select',
-            size: 'small',
-            options: [
-              {
-                label: '不限',
-                value: null,
-              },
-              {
-                label: '脱贫监测户',
-                value: 1,
-              },
-              {
-                label: '边缘户',
-                value: 2,
-              },
-              {
-                label: '其他居民',
-                value: 3,
-              },
-            ],
-          },
-          {
-            label: '审核状态',
-            prop: 'status',
-            component: 'select',
-            size: 'small',
-            options: [
-              {
-                label: '不限',
-                value: null,
-              },
-              {
-                label: '待审核',
-                value: 1,
-              },
-              {
-                label: '已审核',
-                value: 2,
-              },
-              {
-                label: '未审核',
-                value: 3,
-              },
-              {
-                label: '已取消',
-                value: 4,
-              },
-            ],
-          },
-        ],
       },
       table: {
         column: [
@@ -233,6 +129,9 @@ export default {
     }
   },
   methods: {
+    handleRowClick(row, column, event){
+      console.log(row)
+    },
     getUrl (id) {
       const result = UserFiles.findOne({ _id: id })
 
@@ -245,7 +144,6 @@ export default {
     },
     uploadIt (e) {
       e.preventDefault();
-      console.log(e.currentTarget.files[0])
       let file = e.currentTarget.files[0]
       if (file) {
         let uploadInstance = UserFiles.insert({
@@ -259,35 +157,35 @@ export default {
         }, false)
         this.uploading = uploadInstance;
         this.inProgress = true
-        uploadInstance.on('start', () => {
-          console.log('Starting')
-        })
-        uploadInstance.on('end', (error, fileObj) => {
-          console.log('On end File Object:', fileObj)
-        })
+        // 文件上传成功的事件处理
         uploadInstance.on('uploaded', (error, fileObj) => {
+          if (error) {
+            return;
+          }
           if (window.FileReader) {
-            console.log('lll')
-            this.uploader.id = fileObj._id
-            this.getMd5WithBrowser(file, this.uploader.id)
+            // 将文件转换成Epub格式的文件
+            this.getMd5WithBrowser(file, fileObj._id)
           }
         })
         uploadInstance.on('error', (error, fileObj) => {
-          alert('上传错误:', error)
+          alert(error)
         })
         uploadInstance.on('progress', (progress, fileObj) => {
-          console.log('Upload Percentage:', progress)
           this.progress = progress
         })
+        // 开始上传
         uploadInstance.start()
       }
     },
     removeFile (item) {
       let conf = confirm('Are you sure you want to delete the file?') || false;
       if (conf == true) {
-        Meteor.call('RemoveFile', { _id: item._id }, function (err, res) {
-          if (err)
+        console.log('item', item)
+        Meteor.call('files.remove', { _id: item._id, fileId: item.fileId }, function (err, res) {
+          if (err) {
             console.log(err);
+            return;
+          }
         })
       }
     },
@@ -312,26 +210,17 @@ export default {
     handleAddBook (book, id) {
       let self = this;
       return new Promise((resolve, reject) => {
-        localforage.getItem('books').then(bookArr => {
-          if (bookArr == null) {
-            bookArr = [];
-          }
-          bookArr.push(book);
-          localforage
-            .setItem("books", bookArr)
-          Meteor.call('books.add', {
-            fileId: id,
-            ...book
-          })
-          console.log()
-          this.uploader = {
-            id: null,
-            uploading: [],
-            progress: 0,
-            inProgress: false
-          }
-          console.log('handleAddBook', book)
+        Meteor.call('books.add', {
+          fileId: id,
+          ...book
         })
+        console.log()
+        this.uploader = {
+          id: null,
+          uploading: [],
+          progress: 0,
+          inProgress: false
+        }
       });
     },
     handleBook (file, md5, id) {
@@ -340,146 +229,130 @@ export default {
       let bookName = file.name.substr(0, file.name.length - extension.length - 1);
       let book = null
       return new Promise((resolve, reject) => {
-        //md5重复不导入
-        let isRepeat = false;
-        localforage.getItem('books').then(bookArr => {
-          if (bookArr == null) {
-            bookArr = [];
-          }
-          if (bookArr.length > 0) {
-            bookArr.forEach((item) => {
-              if (item.md5 === md5) {
-                isRepeat = true;
-                resolve();
-              }
-            });
-          }
-          //解析图书，获取图书数据
-          if (!isRepeat) {
-            let reader = new FileReader();
-            reader.readAsArrayBuffer(file);
-            reader.onload = async (e) => {
-              if (!e.target) {
-                reject();
-                throw new Error();
-              }
-              let cover = "";
-              const epub = ePub(e.target.result, "binary");
-              console.log('epub')
-              epub.loaded.metadata
-                .then((metadata) => {
-                  if (!e.target) {
-                    reject();
-                    throw new Error();
-                  }
-                  epub
-                    .coverUrl()
-                    .then(async (url) => {
-                      if (url) {
-                        var reader = new FileReader();
-                        let blob = await fetch(url)
-                          .then((r) => r
-                            .blob());
-                        reader.readAsDataURL(blob);
-                        console.log('coverUrl')
-                        reader.onloadend =
-                          async () => {
+        console.log('长度',)
+        //解析图书，获取图书数据
+        if (Books.find({ md5,name: bookName }).fetch().length === 0) {
+          let reader = new FileReader();
+          reader.readAsArrayBuffer(file);
+          reader.onload = async (e) => {
+            if (!e.target) {
+              reject();
+              throw new Error();
+            }
+            let cover = "";
+            const epub = ePub(e.target.result, "binary");
+            epub.loaded.metadata
+              .then((metadata) => {
+                if (!e.target) {
+                  reject();
+                  throw new Error();
+                }
+                epub
+                  .coverUrl()
+                  .then(async (url) => {
+                    if (url) {
+                      var reader = new FileReader();
+                      let blob = await fetch(url)
+                        .then((r) => r
+                          .blob());
+                      reader.readAsDataURL(blob);
+                      reader.onloadend =
+                        async () => {
 
-                            cover = reader
-                              .result;
-                            let key,
+                          cover = reader
+                            .result;
+                          let key,
+                            name,
+                            author,
+                            description,
+                            publisher;
+                          [name, author,
+                            description,
+                            publisher
+                          ] = [
+                              metadata.title,
+                              metadata
+                                .creator,
+                              metadata
+                                .description,
+                              metadata
+                                .publisher,
+                            ];
+                          let format =
+                            "EPUB";
+                          key = new Date()
+                            .getTime() +
+                            "";
+
+                          let book =
+                            new BookModel(
+                              key,
                               name,
                               author,
                               description,
-                              publisher;
-                            [name, author,
-                              description,
+                              md5,
+                              cover,
+                              format,
                               publisher
-                            ] = [
-                                metadata.title,
-                                metadata
-                                  .creator,
-                                metadata
-                                  .description,
-                                metadata
-                                  .publisher,
-                              ];
-                            let format =
-                              "EPUB";
-                            key = new Date()
-                              .getTime() +
-                              "";
-
-                            let book =
-                              new BookModel(
-                                key,
-                                name,
-                                author,
-                                description,
-                                md5,
-                                cover,
-                                format,
-                                publisher
-                              );
-                            console.log('key')
-                            this.handleAddBook(
-                              book, id)
-                            BookUtil.addBook(
-                              key, e
-                                .target
-                              .result);
-                            resolve();
-                          };
-                      } else {
-                        cover = "noCover";
-                        let key,
-                          name,
-                          author,
-                          publisher,
-                          description;
-                        [name, author, description,
-                          publisher
-                        ] = [
-                            metadata.title,
-                            metadata.creator,
-                            metadata.description,
-                            metadata.publisher,
-                          ];
-                        let format =
-                          "EPUB";
-                        key = new Date().getTime() +
-                          "";
-                        let book = new BookModel(
-                          key,
-                          name,
-                          author,
-                          description,
-                          md5,
-                          cover,
-                          format,
-                          publisher
-                        );
-                        this.handleAddBook(book);
-                        BookUtil.addBook(key, e.target
-                          .result);
-                        resolve();
-                      }
-                    })
-                    .catch((err) => {
-                      console.log(err, "err");
-                      reject();
-                    });
-                })
-                .catch(() => {
-                  console.log("Error occurs");
-                  reject();
-                });
-
-            }
+                            );
+                          console.log('key')
+                          this.handleAddBook(
+                            book, id)
+                          // BookUtil.addBook(
+                          //   key, e
+                          //     .target
+                          //   .result);
+                          resolve();
+                        };
+                    } else {
+                      cover = "noCover";
+                      let key,
+                        name,
+                        author,
+                        publisher,
+                        description;
+                      [name, author, description,
+                        publisher
+                      ] = [
+                          metadata.title,
+                          metadata.creator,
+                          metadata.description,
+                          metadata.publisher,
+                        ];
+                      let format =
+                        "EPUB";
+                      key = new Date().getTime() +
+                        "";
+                      let book = new BookModel(
+                        key,
+                        name,
+                        author,
+                        description,
+                        md5,
+                        cover,
+                        format,
+                        publisher
+                      );
+                      this.handleAddBook(book,id);
+                      // BookUtil.addBook(key, e.target
+                      //   .result);
+                      resolve();
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err, "err");
+                    reject();
+                  });
+              })
+              .catch(() => {
+                console.log("Error occurs");
+                reject();
+              });
 
           }
-        })
-      });
+
+        }
+      })
     },
     getMd5WithBrowser (file, id) {
       let extension = file.name.split(".").reverse()[0];

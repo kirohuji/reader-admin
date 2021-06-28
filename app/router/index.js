@@ -16,10 +16,6 @@ export const constantRoutes = [
   },
   {
     path: '/',
-    redirect: '/users'
-  },
-  {
-    path: '/',
     component: Layout,
     redirect: '/users',
     name: 'users',

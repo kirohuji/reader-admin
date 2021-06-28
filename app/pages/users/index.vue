@@ -38,7 +38,10 @@
       ref="bookDialog"
       title="新增用户"
     >
-      <BookTransfer :userId="table.selected._id"/>
+      <BookTransfer :userId="table.selected._id" />
+      <template v-slot:footer >
+        <el-button @click="$refs.bookDialog.close()">关闭</el-button>
+      </template>
     </BaseDialog>
   </div>
 </template>

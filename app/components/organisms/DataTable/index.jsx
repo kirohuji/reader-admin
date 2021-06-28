@@ -6,7 +6,7 @@ export default {
     page: {
       layout: `total, sizes, prev, pager, next, jumper`,
       total: 0,
-      'page-sizes': [100, 200, 300, 400],
+      'page-sizes': [10, 20, 50, 100],
       'page-size': 100,
       background: false
     }
@@ -36,8 +36,9 @@ export default {
           {...{
             props: {
               ...this.$attrs,
-              ...this.table
-            }
+              ...this.table,
+            },
+            on: this.$listeners
           }}
         >
           {this.column.map((item) => (

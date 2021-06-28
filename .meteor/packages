@@ -33,3 +33,6 @@ tracker
 mizzao:user-status
 reywood:publish-composite
 cultofcoders:grapher
+simple:rest
+simple:rest-accounts-password
+simple:json-routes
