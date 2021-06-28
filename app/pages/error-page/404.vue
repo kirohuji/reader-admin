@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import notFound from '../../assets/404_images/404.png';
-import notFoundCloud from '../../assets/404_images/404.png';
+// import notFound from '../../assets/404_images/404.png';
+// import notFoundCloud from '../../assets/404_images/404.png';
 
 export default {
   name: 'Page404',
@@ -56,8 +56,8 @@ export default {
   },
   data () {
     return {
-      notFound: notFound,
-      notFoundCloud: notFoundCloud
+      notFound: '/404_images/404.png',
+      notFoundCloud: '/404_images/404_cloud.png'
     }
   }
 }

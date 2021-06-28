@@ -37,16 +37,5 @@ if (Meteor.isServer) {
         },
       });
     });
-    JsonRoutes.add("OPTIONS", "cdn/storage/userfiles/*", (req, res, next) => {
-      JsonRoutes.sendResult(res, {
-        headers: {
-          // enable CORS
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization, X-Requested-With",
-        },
-      });
-    });
   });
 }
