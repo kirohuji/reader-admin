@@ -46,6 +46,7 @@ export default {
       //     })
       //     .catch((_) => {})
       this.visible = false
+      // this.$emit('close')
       done && done()
     }
   }

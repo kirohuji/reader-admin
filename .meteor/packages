@@ -36,3 +36,4 @@ cultofcoders:grapher
 simple:rest
 simple:rest-accounts-password
 simple:json-routes
+simple:authenticate-user-by-token

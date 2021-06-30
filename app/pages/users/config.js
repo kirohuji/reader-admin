@@ -2,45 +2,94 @@ export default {
   search: {
     col: 3,
     fields: [
-      {
-        label: '预警时间',
-        prop: 'date',
-        component: 'date-picker',
-        type: 'datetime',
-        placeholder: '选择日期',
-        'value-format': 'yyyy-MM-dd HH:mm',
-        format: 'yyyy-MM-dd HH:mm',
-        size: 'small',
-        required: true,
-        rules: [
-          { required: true, message: '年龄不能为空' },
-          { type: 'number', message: '年龄必须为数字值' }
-        ]
-      },
-      {
-        label: '审核时间',
-        prop: 'aduit',
-        component: 'date-picker',
-        type: 'datetime',
-        placeholder: '选择日期',
-        'value-format': 'yyyy-MM-dd HH:mm',
-        format: 'yyyy-MM-dd HH:mm',
-        size: 'small'
-      }
-    ]
+      // {
+      //   label: "预警时间",
+      //   prop: "date",
+      //   component: "date-picker",
+      //   type: "datetime",
+      //   placeholder: "选择日期",
+      //   "value-format": "yyyy-MM-dd HH:mm",
+      //   format: "yyyy-MM-dd HH:mm",
+      //   size: "small",
+      //   required: true,
+      //   rules: [
+      //     { required: true, message: "年龄不能为空" },
+      //     { type: "number", message: "年龄必须为数字值" },
+      //   ],
+      // },
+      // {
+      //   label: "审核时间",
+      //   prop: "aduit",
+      //   component: "date-picker",
+      //   type: "datetime",
+      //   placeholder: "选择日期",
+      //   "value-format": "yyyy-MM-dd HH:mm",
+      //   format: "yyyy-MM-dd HH:mm",
+      //   size: "small",
+      // },
+    ],
   },
   form: {
     col: 1,
     fields: [
       {
-        label: '所属单位',
-        prop: 'date',
-        component: 'input',
-        type: 'input',
-        placeholder: '卫健局',
-        size: 'small',
-        required: true
-      }
-    ]
-  }
-}
+        label: "账户名",
+        prop: "username",
+        component: "input",
+        type: "input",
+        placeholder: "请输入内容",
+        size: "small",
+        required: true,
+      },
+      {
+        label: "用户名",
+        prop: "displayName",
+        component: "input",
+        type: "input",
+        placeholder: "请输入内容",
+        size: "small",
+        // required: true,
+      },
+      {
+        label: "新密码",
+        prop: "password",
+        component: "input",
+        type: "password",
+        placeholder: "请输入内容",
+        size: "small",
+        // required: true,
+      },
+      // {
+      //   label: "电子邮件",
+      //   prop: "email",
+      //   component: "select",
+      //   placeholder: "请输入内容",
+      //   size: "small",
+      //   multiple: true,
+      //   filterable: true,
+      //   "allow-create": true,
+      //   "default-first-option": true,
+      //   required: true,
+      // },
+      {
+        label: "手机号",
+        prop: "phone",
+        component: "input",
+        placeholder: "请输入内容",
+        size: "small",
+        type: 'input'
+        // required: true,
+      },
+      {
+        label: "备注",
+        prop: "remark",
+        component: "input",
+        type: "textarea",
+        placeholder: "请输入内容",
+        size: "small",
+        style: "width: 250px",
+        // required: true,
+      },
+    ],
+  },
+};

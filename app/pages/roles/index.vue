@@ -8,8 +8,7 @@
       >
         <template v-slot:right>
           <el-button @click="()=> { 
-            table.selected={}
-            baseDialogTitle='新建用户'
+            baseDialogTitle=''
             $refs.baseDialog.open() 
           }">新建用户</el-button>
         </template>
@@ -110,8 +109,8 @@ export default {
         username: doc.username,
         displayName: doc.profile && doc.profile.displayName,
         remark: doc.profile && doc.profile.remark,
-        // email: doc.emails.map(o => o.address).join(','),
-        phone: doc.profile && doc.profile.phone,
+        email: doc.emails.map(o => o.address).join(','),
+        phone: doc.profile && doc.profile.phone.join(','),
         online: doc.status && doc.status.online,
         roles: doc.roles && doc.roles.__global_roles__,
         createdAt: doc.createdAt,
@@ -134,10 +133,10 @@ export default {
             prop: 'displayName',
             label: '用户名',
           },
-          // {
-          //   prop: 'email',
-          //   label: '电子邮件',
-          // },
+          {
+            prop: 'email',
+            label: '电子邮件',
+          },
           {
             prop: 'phone',
             label: '手机号',
@@ -179,7 +178,6 @@ export default {
             _id: model._id,
             username: model.username,
             emails: model.email,
-            password: model.password,
             profile: {
               displayName: model.displayName,
               remark: model.remark,
@@ -203,7 +201,8 @@ export default {
         console.log('data', data)
         return {
           ...data,
-          phone: data.phone
+          email: data.email?.split(','),
+          phone: data.phone?.split(',')
         }
       }
     },

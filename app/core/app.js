@@ -3,7 +3,7 @@ import router from "../router";
 import "../plugins";
 import Root from "./Root.vue";
 import store from "./store";
-// import './permission' // permission control
+import './permission' // permission control
 import "normalize.css/normalize.css"; // a modern alternative to CSS
 import "../styles/variables.scss";
 import "../styles/index.scss";
