@@ -55,6 +55,7 @@ if (Meteor.isServer) {
       "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
       "Access-Control-Allow-Headers":
         "Content-Type, Authorization, X-Requested-With",
+        "Access-Control-Expose-Headers": "Content-Disposition",
     });
     JsonRoutes.add("OPTIONS", "books/users/:0", (req, res, next) => {
       JsonRoutes.sendResult(res, {
@@ -64,6 +65,7 @@ if (Meteor.isServer) {
           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
           "Access-Control-Allow-Headers":
             "Content-Type, Authorization, X-Requested-With",
+            "Access-Control-Expose-Headers": "Content-Disposition",
         },
       });
     });
@@ -75,6 +77,31 @@ if (Meteor.isServer) {
           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
           "Access-Control-Allow-Headers":
             "Content-Type, Authorization, X-Requested-With",
+            "Access-Control-Expose-Headers": "Content-Disposition",
+        },
+      });
+    });
+    // JsonRoutes.add("OPTIONS", "/files/epub/*", (req, res, next) => {
+    //   JsonRoutes.sendResult(res, {
+    //     headers: {
+    //       // enable CORS
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+    //       "Access-Control-Allow-Headers":
+    //         "Content-Type, Authorization, X-Requested-With",
+    //         "Access-Control-Expose-Headers": "Content-Disposition",
+    //     },
+    //   });
+    // });
+    JsonRoutes.add("GET", "/files/epub/userfiles/*/original/*", (req, res, next) => {
+      JsonRoutes.sendResult(res, {
+        headers: {
+          // enable CORS
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers":
+            "Content-Type, Authorization, X-Requested-With",
+            "Access-Control-Expose-Headers": "Content-Disposition",
         },
       });
     });
